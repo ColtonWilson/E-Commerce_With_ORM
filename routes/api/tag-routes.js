@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
-const sequelize = require('../../config/connection'); //To use sequelize.....maybe not needed
+
 
 // The `/api/tags` endpoint
 //Skelton layout similar to module 13 lesson 25 routes/api/driverRoutes.js
@@ -32,7 +32,7 @@ router.get('/:id', async(req, res) => {
     });
     //If nothing returned then tell user they caused error and no id was found
     if(!tagData){
-       res.status(404).json({ message: 'No product found with that id!' });
+       res.status(404).json({ message: 'No tag found with that id!' });
       
     }else{
       //If tag data found return json with success. 
@@ -96,7 +96,7 @@ router.delete('/:id', async (req, res) => {
       }
      });
     if (!tagData) {
-      res.status(404).json({ message: 'No product with this id!' });
+      res.status(404).json({ message: 'No tag with this id!' });
       
     }else{
       res.status(200).json(tagData);
