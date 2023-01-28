@@ -1,5 +1,4 @@
 const router = require('express').Router();
-
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
@@ -48,8 +47,18 @@ router.get('/:id', async (req, res) => {
 
   }
 });
-
+//************************Given code has error******************************** */
 // create new product
+//This code was given, but does not work with the example req.body that was given as it was missing category_id. If that is added then categories can be added. As shown:
+  /* req.body should look like this...
+    {
+      product_name: "Basketball",
+      price: 200.00,
+      stock: 3,
+      category_id: 1
+      tagIds: [1, 2, 3, 4]
+    }
+  */
 router.post('/', (req, res) => {
   /* req.body should look like this...
     {
