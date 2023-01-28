@@ -78,7 +78,7 @@ router.put('/:id', async(req, res) => {
     if(!tagData[0]){
       res.status(404).json({ message: 'req.body should look like this...{"tag_name": "black"}' });
     }else{
-      res.status(200).json(tagData);
+      res.status(200).json(tagData[0]);
     }
 
   }catch(err){
