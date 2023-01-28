@@ -5,10 +5,11 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // The `/api/products` endpoint
 
 // get all products
-//Skelton layout similar to module 13 lesson 25
+//Skelton layout similar to module 13 lesson 25 routes/api/driverRoutes.js
 router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
+  //Try to get all the products is success then show json, catch errors and return 500 status code
   try{
     const productData = await Product.findAll({
       include: [{model: Category}, {model: Tag}],
@@ -18,14 +19,34 @@ router.get('/', async (req, res) => {
 
   }catch (err) {
     res.status(500).json(err);
+
   }
 
 });
 
 // get one product
-router.get('/:id', (req, res) => {
+//Skelton layout similar to module 13 lesson 25 routes/api/driverRoutes.js
+//Try to get one product by id if success then show json, catch errors and return 500 status code
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
+  try{
+    const productData = await Product.findByPk(req.params.id, {
+      include: [{model: Category}, {model: Tag}],
+    });
+    //If nothing returned then tell user they caused error and no id was found
+    if(!productData){
+       res.status(404).json({ message: 'No product found with that id!' });
+      
+    }else{
+      //If product data found return json with success. 
+      res.status(200).json(productData);
+    }
+
+  }catch (err) {
+    res.status(500).json(err);
+
+  }
 });
 
 // create new product
@@ -101,9 +122,26 @@ router.put('/:id', (req, res) => {
       res.status(400).json(err);
     });
 });
-
-router.delete('/:id', (req, res) => {
+//Skelton layout similar to module 13 lesson 13 routes/api/userRoutes.js
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
+  try{
+    const productData = await Product.destroy({
+      where: {
+        id: req.params.id,
+      }
+     });
+    if (!productData) {
+      res.status(404).json({ message: 'No product with this id!' });
+      
+    }else{
+      res.status(200).json(productData);
+    }
+
+
+  }catch(err){
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
