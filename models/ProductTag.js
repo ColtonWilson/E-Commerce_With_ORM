@@ -16,7 +16,6 @@ ProductTag.init(
     },//Must be a foreign key since named product_id
     product_id:{
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: 'product',
         key: 'id'
@@ -24,7 +23,6 @@ ProductTag.init(
     },//Must be a foreign key since named tag_id
     tag_id:{
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: 'tag',
         key: 'id'
